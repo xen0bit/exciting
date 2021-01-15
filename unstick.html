@@ -1,0 +1,40 @@
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <canvas id="myCanvas" width="500" height="500" style="border:1px solid #c3c3c3;">
+        Your browser does not support the canvas element.
+    </canvas>
+</body>
+<script>
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    function draw() {
+
+        var blockSize = 64;
+        var imageData = ctx.createImageData(blockSize, blockSize);
+        for (var i = 0; i < blockSize * blockSize; i++) {
+            var p = i * 4;
+            imageData.data[p + 0] = Math.random() >= 0.5 ? 255 : 0;
+            imageData.data[p + 1] = Math.random() >= 0.5 ? 255 : 0;
+            imageData.data[p + 2] = Math.random() >= 0.5 ? 255 : 0;
+            imageData.data[p + 3] = 255;
+        }
+
+        for (var y = 0; y < canvas.height; y += blockSize) {
+            for (var x = 0; x < canvas.width; x += blockSize) {
+                ctx.putImageData(imageData, x, y);
+            }
+        }
+
+        window.requestAnimationFrame(draw);
+    }
+    window.requestAnimationFrame(draw);
+</script>
+
+</html>
